@@ -100,6 +100,36 @@ from PARTICIPATED
 where damage_amount >=25000;
 
 
+#WEEK 2------------------->
+#LIST THE ENTIRE PARTICIPATED RELATION IN THE DESCENDING ORDER OF DAMAGE AMOUNT.
+SELECT * 
+FROM Participated 
+ORDER BY damage_amount DESC;
 
+#FIND THE AVERAGE DAMAGE AMOUNT
+SELECT AVG(damage_amount) AS average_damage 
+FROM Participated;
+
+#DELETE THE TUPLE WHOSE DAMAGE AMOUNT IS BELOW THE AVERAGE DAMAGE AMOUNT
+
+#LIST THE NAME OF DRIVERS WHOSE DAMAGE IS GREATER THAN THE AVERAGE DAMAGE AMOUNT.
+select driver_id  
+from Participated
+where damage_amount > (select AVG(damage_amount)from participated );
+
+#with join method for driver name
+SELECT name 
+FROM Person
+WHERE driver_id IN (
+    SELECT driver_id 
+    FROM Participated 
+    WHERE damage_amount > (
+        SELECT AVG(damage_amount) FROM Participated
+    )
+);
+
+#Find the maximum damage amount
+SELECT MAX(damage_amount) AS max_damage 
+FROM Participated;
 
 
